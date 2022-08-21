@@ -1,8 +1,12 @@
-from django.urls import path
+from django.urls import path, include
+from app.views import TodoViewSet
+from rest_framework import routers
 
-from app.views import TodoDetailChangeAndDelete, TodoListAndCreate
+route = routers.DefaultRouter()
+
+route.register(r'todo',TodoViewSet, basename= 'todo')
 
 urlpatterns = [
-    path('', TodoListAndCreate.as_view()),
-    path('<int:pk>/',TodoDetailChangeAndDelete.as_view()),
+    path('', include(route.urls))
+    
 ]
